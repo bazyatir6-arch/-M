@@ -3,109 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Apps</title>
-
+    <title>حاسبة المعدل الدراسي - My Apps</title>
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            background: #f2f4f8;
-            color: #222;
-        }
-
-        header {
-            background: #1f2937;
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-        }
-
-        header h1 {
+            background-color: #f3f4f6;
             margin: 0;
-            font-size: 35px;
-        }
-
-        header p {
-            margin-top: 10px;
-            font-size: 18px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .app {
-            background: white;
-            border-radius: 15px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .app h2 {
-            margin-top: 0;
-        }
-
-        .app p {
-            color: #666;
-        }
-
-        .download {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            padding: 12px 22px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-
-        .download:hover {
-            background: #1d4ed8;
-        }
-
-        footer {
+            color: #333;
             text-align: center;
+        }
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: white;
             padding: 25px;
-            color: #777;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1f2937; font-size: 22px; }
+        label { display: block; margin: 15px 0 5px; text-align: right; font-weight: bold; }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background-color: #1d4ed8; }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #059669;
+        }
+        .share-btn {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
         }
     </style>
 </head>
-
 <body>
 
-    <header>
-        <h1>📱 My Apps</h1>
-        <p>مرحبا بكم في موقعي</p>
-        <p>هنا غادي نشارك التطبيقات اللي كنصاوب 🚀</p>
-    </header>
+<div class="container">
+    <h1>🎓 حاسبة معدل الباكالوريا</h1>
+    <p>أدخل نقطك لحساب المعدل العام فوراً:</p>
 
-    <div class="container">
+    <label>نقطة الامتحان الجهوي (25%):</label>
+    <input type="number" id="regional" placeholder="مثال: 14" step="0.01" min="0" max="20">
 
-        <div class="app">
-            <h2>📱 التطبيق الأول</h2>
-            <p>هنا غادي نحطو وصف التطبيق ديالك.</p>
-            <a class="download" href="#">تحميل التطبيق</a>
-        </div>
+    <label>نقطة المراقبة المستمرة (25%):</label>
+    <input type="number" id="continuous" placeholder="مثال: 16" step="0.01" min="0" max="20">
 
-        <div class="app">
-            <h2>🎮 التطبيق الثاني</h2>
-            <p>غادي نزيدو هنا التطبيق الثاني من بعد.</p>
-            <a class="download" href="#">تحميل التطبيق</a>
-        </div>
+    <label>نقطة الامتحان الوطني (50%):</label>
+    <input type="number" id="national" placeholder="مثال: 15" step="0.01" min="0" max="20">
 
-    </div>
-<!-- زر التواصل عبر الواتساب -->
-<a href="https://wa.me/212609780598" target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">
-    تواصل معي على واتساب 💬
-</a>
-    <footer>
-        © 2026 My Apps
-    </footer>
+    <button onclick="calculateScore()">احسب المعدل</button>
+
+    <div class="result" id="resultText"></div>
+
+    <hr style="margin-top: 25px; border: 0.5px solid #eee;">
+
+    <!-- استبدل 212609780598 برقمك إذا أردت -->
+    <a href="https://wa.me/212609780598" target="_blank" class="share-btn">
+        تواصل معنا على واتساب 💬
+    </a>
+</div>
+
+<script>
+function calculateScore() {
+    let reg = parseFloat(document.getElementById('regional').value) || 0;
+    let cont = parseFloat(document.getElementById('continuous').value) || 0;
+    let nat = parseFloat(document.getElementById('national').value) || 0;
+
+    let finalScore = (reg * 0.25) + (cont * 0.25) + (nat * 0.50);
+    
+    let resultDiv = document.getElementById('resultText');
+    if(finalScore > 0) {
+        resultDiv.innerHTML = "المعدل العام هو: " + finalScore.toFixed(2) + " / 20";
+    } else {
+        resultDiv.innerHTML = "يرجى أدخال النقط بشكل صحيح!";
+    }
+}
+</script>
 
 </body>
 </html>
-<!-- زر التواصل عبر الواتساب -->
-<a href="https://wa.me/212600000000" target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold
