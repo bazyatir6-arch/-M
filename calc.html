@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة المعدل الدراسي</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1f2937; font-size: 20px; }
+        label { display: block; margin: 15px 0 5px; text-align: right; font-weight: bold; font-size: 14px; }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #059669;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎓 حاسبة معدل الباكالوريا</h1>
+
+    <label>نقطة الامتحان الجهوي (25%):</label>
+    <input type="number" id="regional" placeholder="مثال: 14" step="0.01" min="0" max="20">
+
+    <label>نقطة المراقبة المستمرة (25%):</label>
+    <input type="number" id="continuous" placeholder="مثال: 16" step="0.01" min="0" max="20">
+
+    <label>نقطة الامتحان الوطني (50%):</label>
+    <input type="number" id="national" placeholder="مثال: 15" step="0.01" min="0" max="20">
+
+    <button onclick="calculateScore()">احسب المعدل</button>
+
+    <div class="result" id="resultText"></div>
+</div>
+
+<script>
+function calculateScore() {
+    let reg = parseFloat(document.getElementById('regional').value) || 0;
+    let cont = parseFloat(document.getElementById('continuous').value) || 0;
+    let nat = parseFloat(document.getElementById('national').value) || 0;
+
+    let finalScore = (reg * 0.25) + (cont * 0.25) + (nat * 0.50);
+    
+    let resultDiv = document.getElementById('resultText');
+    if(finalScore > 0) {
+        resultDiv.innerHTML = "المعدل العام هو: " + finalScore.toFixed(2) + " / 20";
+    } else {
+        resultDiv.innerHTML = "يرجى أدخال النقط بشكل صحيح!";
+    }
+}
+</script>
+
+</body>
+</html>
